@@ -27,7 +27,10 @@ const numberStorage: AdvancedStorage<number> = {
 // Rahmatilla foydalanuvchi ma'lumotlari uchun UserData type yozmoqchi. Bu type faqat { id: number } ga extends qiladigan tiplarni qabul qiladi va name (string) va data (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type UserData<T extends { id: number }> = {};
+type UserData<T extends { id: number }> = {
+  name: string;
+  data: T;
+};
 
 const admin: UserData<{ id: number; role: string }> = {
   name: "Ali",
@@ -46,14 +49,17 @@ const guest: UserData<{ id: number; guestId: string }> = {
 // Shahrizat opa mahsulot katalogi uchun ProductCatalog type yozmoqchi. Bu type faqat { price: number } ga extends qiladigan tiplarni qabul qiladi va category (string) va items (generic massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type ProductCatalog<T extends { price: number }> = {};
+type ProductCatalog<T extends { price: number }> = {
+  category: string;
+  items: T[];
+};
 
 const electronics: ProductCatalog<{ price: number; brand: string }> = {
   category: "Elektronika",
   items: [{ price: 1000000, brand: "Samsung" }],
 };
 
-const clothes: ProductCatalog<{ price: number; size: string }> = {
+const clothess: ProductCatalog<{ price: number; size: string }> = {
   category: "Kiyim",
   items: [{ price: 50000, size: "M" }],
 };
@@ -65,7 +71,10 @@ const clothes: ProductCatalog<{ price: number; size: string }> = {
 // Nosirbek jurnal yozuvlari uchun LogEntry interface yozmoqchi. Bu interface faqat { timestamp: Date } ga extends qiladigan tiplarni qabul qiladi va message (string) va meta (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface LogEntry<T extends { timestamp: Date }> { }
+interface LogEntry<T extends { timestamp: Date }> {
+  message: string;
+  meta: T;
+}
 
 const errorLog: LogEntry<{ timestamp: Date; code: number }> = {
   message: "Xatolik",
@@ -84,14 +93,17 @@ const infoLog: LogEntry<{ timestamp: Date; user: string }> = {
 // Dilshod aka loyiha hujjatlari uchun Document type yozmoqchi. Bu type faqat { id: string } ga extends qiladigan tiplarni qabul qiladi va title (string) va content (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type Document<T extends { id: string }> = {};
+type Documentt<T extends { id: string }> = {
+  title: string;
+  content: T;
+};
 
-const report: Document<{ id: string; pages: number }> = {
+const report: Documentt<{ id: string; pages: number }> = {
   title: "Yillik hisobot",
   content: { id: "R001", pages: 50 },
 };
 
-const contract: Document<{ id: string; signed: boolean }> = {
+const contract: Documentt<{ id: string; signed: boolean }> = {
   title: "Shartnoma",
   content: { id: "C002", signed: true },
 };
@@ -103,7 +115,10 @@ const contract: Document<{ id: string; signed: boolean }> = {
 // Gulnora opa foydalanuvchi sozlamalari uchun Settings interface yozmoqchi. Bu interface faqat { userId: number } ga extends qiladigan tiplarni qabul qiladi va preferences (generic type) va active (boolean) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface Settings<T extends { userId: number }> { }
+interface Settings<T extends { userId: number }> {
+  preferences: T;
+  active: boolean;
+}
 
 const userSettings: Settings<{ userId: number; theme: string }> = {
   preferences: { userId: 123, theme: "dark" },
@@ -122,7 +137,10 @@ const adminSettings: Settings<{ userId: number; role: string }> = {
 // Farrux loyiha jadvallari uchun Timeline interface yozmoqchi. Bu interface faqat { date: string } ga extends qiladigan tiplarni qabul qiladi va milestones (generic type massiv) va projectName (string) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface Timeline<T extends { date: string }> { }
+interface Timeline<T extends { date: string }> {
+  projectName: string;
+  milestones: T[];
+}
 
 const appTimeline: Timeline<{ date: string; phase: string }> = {
   projectName: "Mobile App",
@@ -141,7 +159,10 @@ const webTimeline: Timeline<{ date: string; taskId: number }> = {
 // Zilola savdo operatsiyalari uchun Transaction type yozmoqchi. Bu type faqat { amount: number } ga extends qiladigan tiplarni qabul qiladi va date (string) va details (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type Transaction<T extends { amount: number }> = {};
+type Transaction<T extends { amount: number }> = {
+  date: string;
+  details: T;
+};
 
 const purchase: Transaction<{ amount: number; item: string }> = {
   date: "2025-06-27",
@@ -160,14 +181,17 @@ const refund: Transaction<{ amount: number; reason: string }> = {
 // Jasur tarmoq so'rovlari uchun Request interface yozmoqchi. Bu interface faqat { method: string } ga extends qiladigan tiplarni qabul qiladi va url (string) va payload (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface Request<T extends { method: string }> { }
+interface Requestt<T extends { method: string }> {
+  url: string;
+  payload: T;
+}
 
-const getRequest: Request<{ method: string; headers: string[] }> = {
+const getRequest: Requestt<{ method: string; headers: string[] }> = {
   url: "/api/users",
   payload: { method: "GET", headers: ["Authorization"] },
 };
 
-const postRequest: Request<{ method: string; body: string }> = {
+const postRequest: Requestt<{ method: string; body: string }> = {
   url: "/api/users",
   payload: { method: "POST", body: "{}" },
 };
@@ -179,7 +203,10 @@ const postRequest: Request<{ method: string; body: string }> = {
 // Madina kutubxona kitoblari uchun LibraryBook type yozmoqchi. Bu type faqat { isbn: string } ga extends qiladigan tiplarni qabul qiladi va title (string) va metadata (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type LibraryBook<T extends { isbn: string }> = {};
+type LibraryBook<T extends { isbn: string }> = {
+  title: string;
+  metadata: T;
+};
 
 const fiction: LibraryBook<{ isbn: string; genre: string }> = {
   title: "O'tgan Kunlar",
@@ -198,7 +225,10 @@ const science: LibraryBook<{ isbn: string; pages: number }> = {
 // Sardor inventar boshqaruvi uchun Inventory interface yozmoqchi. Bu interface faqat { id: number } ga extends qiladigan tiplarni qabul qiladi va category (string) va products (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface Inventory<T extends { id: number }> { }
+interface Inventory<T extends { id: number }> {
+  category: string;
+  products: T[];
+}
 
 const gadgets: Inventory<{ id: number; brand: string }> = {
   category: "Elektronika",
@@ -217,7 +247,10 @@ const clothes: Inventory<{ id: number; size: string }> = {
 // Nigora xabarlar tizimi uchun Message type yozmoqchi. Bu type faqat { sender: string } ga extends qiladigan tiplarni qabul qiladi va timestamp (Date) va content (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type Message<T extends { sender: string }> = {};
+type Message<T extends { sender: string }> = {
+  timestamp: Date;
+  content: T;
+};
 
 const textMessage: Message<{ sender: string; text: string }> = {
   timestamp: new Date(),
@@ -236,7 +269,10 @@ const dataMessage: Message<{ sender: string; code: number }> = {
 // Kamoljon API so'rovlari uchun ApiRequest interface yozmoqchi. Bu interface faqat { endpoint: string } ga extends qiladigan tiplarni qabul qiladi va status (number) va params (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface ApiRequest<T extends { endpoint: string }> { }
+interface ApiRequest<T extends { endpoint: string }> {
+  status: number;
+  params: T;
+}
 
 const userRequest: ApiRequest<{ endpoint: string; query: string }> = {
   status: 200,
@@ -255,7 +291,10 @@ const productRequest: ApiRequest<{ endpoint: string; filter: string }> = {
 // Shaxzod talaba ma'lumotlari uchun Student type yozmoqchi. Bu type faqat { studentId: number } ga extends qiladigan tiplarni qabul qiladi va group (string) va profile (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type Student<T extends { studentId: number }> = {};
+type Student<T extends { studentId: number }> = {
+  group: string;
+  profile: T;
+};
 
 const studentA: Student<{ studentId: number; name: string }> = {
   group: "A-101",
@@ -274,7 +313,10 @@ const studentB: Student<{ studentId: number; gpa: number }> = {
 // Zulayho loyiha holatlari uchun ProjectStatus interface yozmoqchi. Bu interface faqat { status: string } ga extends qiladigan tiplarni qabul qiladi va projectId (number) va details (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface ProjectStatus<T extends { status: string }> { }
+interface ProjectStatus<T extends { status: string }> {
+  projectId: number;
+  details: T;
+}
 
 const activeProject: ProjectStatus<{ status: string; progress: number }> = {
   projectId: 101,
@@ -294,9 +336,12 @@ const completedProject: ProjectStatus<{ status: string; completedAt: string }> =
 // Rustam xodimlar ro'yxati uchun EmployeeList type yozmoqchi. Bu type faqat { employeeId: number } ga extends qiladigan tiplarni qabul qiladi va department (string) va members (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type EmployeeList<T extends { employeeId: number }> = {};
+type EmployeeList<T extends { employeeId: number }> = {
+  department: string;
+  members: T[];
+};
 
-const devTeam: EmployeeList<{ employeeId: number; role: string }> = {
+const devTeamm: EmployeeList<{ employeeId: number; role: string }> = {
   department: "IT",
   members: [{ employeeId: 1, role: "Developer" }],
 };
@@ -313,7 +358,10 @@ const hrTeam: EmployeeList<{ employeeId: number; hireDate: string }> = {
 // Malika kurs modullari uchun CourseModule interface yozmoqchi. Bu interface faqat { moduleId: string } ga extends qiladigan tiplarni qabul qiladi va title (string) va content (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface CourseModule<T extends { moduleId: string }> { }
+interface CourseModule<T extends { moduleId: string }> {
+  title: string;
+  content: T[];
+}
 
 const programmingModule: CourseModule<{ moduleId: string; topic: string }> = {
   title: "TypeScript",
@@ -332,7 +380,10 @@ const designModule: CourseModule<{ moduleId: string; duration: number }> = {
 // Otabek blog postlari uchun BlogPost type yozmoqchi. Bu type faqat { author: string } ga extends qiladigan tiplarni qabul qiladi va published (boolean) va metadata (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type BlogPost<T extends { author: string }> = {};
+type BlogPost<T extends { author: string }> = {
+  published: boolean;
+  metadata: T;
+};
 
 const techPost: BlogPost<{ author: string; category: string }> = {
   published: true,
@@ -351,7 +402,10 @@ const lifePost: BlogPost<{ author: string; date: string }> = {
 // Aziza savdo tranzaksiyalari uchun Payment type yozmoqchi. Bu type faqat { amount: number } ga extends qiladigan tiplarni qabul qiladi va transactionId (string) va details (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type Payment<T extends { amount: number }> = {};
+type Payment<T extends { amount: number }> = {
+  transactionId: string;
+  details: T;
+};
 
 const onlinePayment: Payment<{ amount: number; method: string }> = {
   transactionId: "T123",
@@ -370,7 +424,10 @@ const cashPayment: Payment<{ amount: number; currency: string }> = {
 // Shohruh tarmoq so'rovlari uchun NetworkRequest interface yozmoqchi. Bu interface faqat { protocol: string } ga extends qiladigan tiplarni qabul qiladi va url (string) va config (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface NetworkRequest<T extends { protocol: string }> { }
+interface NetworkRequest<T extends { protocol: string }> {
+  url: string
+  config: T;
+}
 
 const httpRequest: NetworkRequest<{ protocol: string; headers: string[] }> = {
   url: "/api/data",
@@ -389,7 +446,10 @@ const wsRequest: NetworkRequest<{ protocol: string; timeout: number }> = {
 // Xurshida taomlar menyusi uchun Menu type yozmoqchi. Bu type faqat { itemId: number } ga extends qiladigan tiplarni qabul qiladi va category (string) va dishes (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type Menu<T extends { itemId: number }> = {};
+type Menu<T extends { itemId: number }> = {
+  category: string
+  dishes: T[];
+};
 
 const desserts: Menu<{ itemId: number; name: string }> = {
   category: "Shirinliklar",
@@ -408,14 +468,17 @@ const drinks: Menu<{ itemId: number; price: number }> = {
 // Ibrohim sport tadbirlari uchun Event interface yozmoqchi. Bu interface faqat { location: string } ga extends qiladigan tiplarni qabul qiladi va name (string) va info (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface Event<T extends { location: string }> { }
+interface Eventt<T extends { location: string }> {
+  name: string;
+  info: T;
+}
 
-const football: Event<{ location: string; date: string }> = {
+const football: Eventt<{ location: string; date: string }> = {
   name: "Futbol",
   info: { location: "Stadion", date: "2025-07-01" },
 };
 
-const chess: Event<{ location: string; participants: number }> = {
+const chess: Eventt<{ location: string; participants: number }> = {
   name: "Shaxmat",
   info: { location: "Klub", participants: 32 },
 };
@@ -427,14 +490,17 @@ const chess: Event<{ location: string; participants: number }> = {
 // Zarina fayl metadatalari uchun FileMetadata type yozmoqchi. Bu type faqat { size: number } ga extends qiladigan tiplarni qabul qiladi va filename (string) va metadata (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type FileMetadata<T extends { size: number }> = {};
+type FileMetadata<T extends { size: number }> = {
+  filename: string;
+  metadata: T;
+};
 
 const image: FileMetadata<{ size: number; format: string }> = {
   filename: "photo.jpg",
   metadata: { size: 1024, format: "JPEG" },
 };
 
-const document: FileMetadata<{ size: number; version: string }> = {
+const documents: FileMetadata<{ size: number; version: string }> = {
   filename: "report.pdf",
   metadata: { size: 2048, version: "1.0" },
 };
@@ -446,7 +512,10 @@ const document: FileMetadata<{ size: number; version: string }> = {
 // Anvar xodimlar jadvallari uchun Roster interface yozmoqchi. Bu interface faqat { shift: string } ga extends qiladigan tiplarni qabul qiladi va date (string) va members (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface Roster<T extends { shift: string }> { }
+interface Roster<T extends { shift: string }> {
+  date: string;
+  members: T[];
+}
 
 const morningShift: Roster<{ shift: string; name: string }> = {
   date: "2025-06-27",
@@ -465,7 +534,10 @@ const eveningShift: Roster<{ shift: string; hours: number }> = {
 // Mohira test natijalari uchun TestResult type yozmoqchi. Bu type faqat { score: number } ga extends qiladigan tiplarni qabul qiladi va testName (string) va result (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type TestResult<T extends { score: number }> = {};
+type TestResult<T extends { score: number }> = {
+  testName: string;
+  result: T;
+};
 
 const mathTest: TestResult<{ score: number; subject: string }> = {
   testName: "Matematika",
@@ -484,7 +556,10 @@ const scienceTest: TestResult<{ score: number; date: string }> = {
 // Nodira sayohat rejalari uchun TripPlan type yozmoqchi. Bu type faqat { destination: string } ga extends qiladigan tiplarni qabul qiladi va startDate (string) va itinerary (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type TripPlan<T extends { destination: string }> = {};
+type TripPlan<T extends { destination: string }> = {
+  startDate: string;
+  itinerary: T;
+};
 
 const beachTrip: TripPlan<{ destination: string; duration: number }> = {
   startDate: "2025-07-01",
@@ -503,7 +578,10 @@ const cityTrip: TripPlan<{ destination: string; budget: number }> = {
 // Bahrom tarmoq xabarlari uchun NetworkMessage interface yozmoqchi. Bu interface faqat { protocol: string } ga extends qiladigan tiplarni qabul qiladi va timestamp (Date) va data (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface NetworkMessage<T extends { protocol: string }> { }
+interface NetworkMessage<T extends { protocol: string }> {
+  timestamp: Date;
+  data: T;
+}
 
 const httpMessage: NetworkMessage<{ protocol: string; status: number }> = {
   timestamp: new Date(),
@@ -522,7 +600,10 @@ const wsMessage: NetworkMessage<{ protocol: string; message: string }> = {
 // Feruza imtihon natijalari uchun ExamResult type yozmoqchi. Bu type faqat { grade: string } ga extends qiladigan tiplarni qabul qiladi va subject (string) va details (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type ExamResult<T extends { grade: string }> = {};
+type ExamResult<T extends { grade: string }> = {
+  subject: string;
+  details: T;
+};
 
 const mathExam: ExamResult<{ grade: string; score: number }> = {
   subject: "Matematika",
@@ -541,7 +622,10 @@ const litExam: ExamResult<{ grade: string; comments: string }> = {
 // Eldor loyiha vazifalari uchun TaskList interface yozmoqchi. Bu interface faqat { taskId: number } ga extends qiladigan tiplarni qabul qiladi va projectName (string) va tasks (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface TaskList<T extends { taskId: number }> { }
+interface TaskList<T extends { taskId: number }> {
+  projectName: string;
+  tasks: T[];
+}
 
 const devTasks: TaskList<{ taskId: number; title: string }> = {
   projectName: "App",
@@ -560,7 +644,10 @@ const designTasks: TaskList<{ taskId: number; priority: string }> = {
 // Munisa foydalanuvchi sessiyalari uchun Session type yozmoqchi. Bu type faqat { sessionId: string } ga extends qiladigan tiplarni qabul qiladi va userId (number) va details (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type Session<T extends { sessionId: string }> = {};
+type Session<T extends { sessionId: string }> = {
+  userId: number;
+  details: T;
+};
 
 const userSession: Session<{ sessionId: string; loginTime: string }> = {
   userId: 123,
@@ -579,7 +666,10 @@ const adminSession: Session<{ sessionId: string; role: string }> = {
 // Asadbek buyurtmalar ro'yxati uchun OrderList interface yozmoqchi. Bu interface faqat { orderId: string } ga extends qiladigan tiplarni qabul qiladi va date (string) va orders (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface OrderList<T extends { orderId: string }> { }
+interface OrderList<T extends { orderId: string }> {
+  date: string;
+  orders: T[];
+}
 
 const foodOrders: OrderList<{ orderId: string; dish: string }> = {
   date: "2025-06-27",
@@ -598,7 +688,10 @@ const gadgetOrders: OrderList<{ orderId: string; price: number }> = {
 // Dilorom jamoa ma'lumotlari uchun TeamData type yozmoqchi. Bu type faqat { teamId: number } ga extends qiladigan tiplarni qabul qiladi va name (string) va members (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type TeamData<T extends { teamId: number }> = {};
+type TeamData<T extends { teamId: number }> = {
+  name: string;
+  members: T[];
+};
 
 const devTeam: TeamData<{ teamId: number; role: string }> = {
   name: "Developers",
@@ -617,7 +710,10 @@ const designTeam: TeamData<{ teamId: number; name: string }> = {
 // Shavkat xizmatlar konfiguratsiyasi uchun ServiceConfig interface yozmoqchi. Bu interface faqat { serviceId: string } ga extends qiladigan tiplarni qabul qiladi va name (string) va settings (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface ServiceConfig<T extends { serviceId: string }> { }
+interface ServiceConfig<T extends { serviceId: string }> {
+  name: string;
+  settings: T;
+}
 
 const cloudService: ServiceConfig<{ serviceId: string; provider: string }> = {
   name: "Cloud",
@@ -636,7 +732,10 @@ const dbService: ServiceConfig<{ serviceId: string; type: string }> = {
 // Oydin tashkilotlar uchun OrgData type yozmoqchi. Bu type faqat { orgId: number } ga extends qiladigan tiplarni qabul qiladi va name (string) va details (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type OrgData<T extends { orgId: number }> = {};
+type OrgData<T extends { orgId: number }> = {
+  name: string;
+  details: T;
+};
 
 const company: OrgData<{ orgId: number; industry: string }> = {
   name: "Tech Corp",
@@ -655,7 +754,10 @@ const ngo: OrgData<{ orgId: number; mission: string }> = {
 // Farhod hujjatlar ro'yxati uchun DocumentList interface yozmoqchi. Bu interface faqat { docId: string } ga extends qiladigan tiplarni qabul qiladi va category (string) va documents (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface DocumentList<T extends { docId: string }> { }
+interface DocumentList<T extends { docId: string }> {
+  category: string;
+  documents: T[];
+}
 
 const reports: DocumentList<{ docId: string; title: string }> = {
   category: "Reports",
@@ -674,7 +776,10 @@ const contracts: DocumentList<{ docId: string; signed: boolean }> = {
 // Zuhra tadbir rejalari uchun EventPlan type yozmoqchi. Bu type faqat { eventId: number } ga extends qiladigan tiplarni qabul qiladi va eventName (string) va tasks (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type EventPlan<T extends { eventId: number }> = {};
+type EventPlan<T extends { eventId: number }> = {
+  eventName: string;
+  tasks: T[];
+};
 
 const weddingPlan: EventPlan<{ eventId: number; task: string }> = {
   eventName: "To'y",
@@ -693,7 +798,10 @@ const conferencePlan: EventPlan<{ eventId: number; priority: string }> = {
 // Akram xabarlar ro'yxati uchun NotificationList interface yozmoqchi. Bu interface faqat { notificationId: string } ga extends qiladigan tiplarni qabul qiladi va type (string) va notifications (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface NotificationList<T extends { notificationId: string }> { }
+interface NotificationList<T extends { notificationId: string }> {
+  type: string;
+  notifications: T[];
+}
 
 const emailNotifications: NotificationList<{
   notificationId: string;
@@ -718,7 +826,10 @@ const smsNotifications: NotificationList<{
 // Surayyo loyiha holatlari uchun ProjectState type yozmoqchi. Bu type faqat { stateId: number } ga extends qiladigan tiplarni qabul qiladi va projectId (number) va state (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type ProjectState<T extends { stateId: number }> = {};
+type ProjectState<T extends { stateId: number }> = {
+  projectId: number;
+  state: T;
+};
 
 const activeState: ProjectState<{ stateId: number; status: string }> = {
   projectId: 101,
@@ -737,7 +848,10 @@ const completedState: ProjectState<{ stateId: number; completedAt: string }> = {
 // Mirzo mijozlar ma'lumotlari uchun ClientData interface yozmoqchi. Bu interface faqat { clientId: string } ga extends qiladigan tiplarni qabul qiladi va name (string) va info (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface ClientData<T extends { clientId: string }> { }
+interface ClientData<T extends { clientId: string }> {
+  name: string;
+  info: T;
+}
 
 const vipClient: ClientData<{ clientId: string; tier: string }> = {
   name: "VIP",
@@ -756,7 +870,10 @@ const regularClient: ClientData<{ clientId: string; orders: number }> = {
 // Sabina kitoblar ro'yxati uchun BookCollection type yozmoqchi. Bu type faqat { bookId: number } ga extends qiladigan tiplarni qabul qiladi va genre (string) va books (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type BookCollection<T extends { bookId: number }> = {};
+type BookCollection<T extends { bookId: number }> = {
+  genre: string;
+  books: T[];
+};
 
 const fictionCollection: BookCollection<{ bookId: number; title: string }> = {
   genre: "Fantastika",
@@ -775,7 +892,10 @@ const scienceCollection: BookCollection<{ bookId: number; author: string }> = {
 // Ilhom tarmoq javoblari uchun NetworkResponse interface yozmoqchi. Bu interface faqat { statusCode: number } ga extends qiladigan tiplarni qabul qiladi va endpoint (string) va result (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface NetworkResponse<T extends { statusCode: number }> { }
+interface NetworkResponse<T extends { statusCode: number }> {
+  endpoint: string;
+  result: T;
+}
 
 const successResponse: NetworkResponse<{
   statusCode: number;
@@ -797,7 +917,10 @@ const errorResponse: NetworkResponse<{ statusCode: number; error: string }> = {
 // Nargiza ta'til rejalari uchun VacationPlan type yozmoqchi. Bu type faqat { location: string } ga extends qiladigan tiplarni qabul qiladi va startDate (string) va details (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type VacationPlan<T extends { location: string }> = {};
+type VacationPlan<T extends { location: string }> = {
+  startDate: string;
+  details: T;
+};
 
 const summerVacation: VacationPlan<{ location: string; duration: number }> = {
   startDate: "2025-07-01",
@@ -817,7 +940,10 @@ const winterVacation: VacationPlan<{ location: string; activities: string[] }> =
 // Sherzod to'lovlar ro'yxati uchun PaymentList interface yozmoqchi. Bu interface faqat { paymentId: string } ga extends qiladigan tiplarni qabul qiladi va date (string) va payments (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface PaymentList<T extends { paymentId: string }> { }
+interface PaymentList<T extends { paymentId: string }> {
+  date: string;
+  payments: T[];
+}
 
 const onlinePayments: PaymentList<{ paymentId: string; method: string }> = {
   date: "2025-06-27",
@@ -836,7 +962,10 @@ const cashPayments: PaymentList<{ paymentId: string; amount: number }> = {
 // Mavluda loyiha hujjatlari uchun ProjectDocument type yozmoqchi. Bu type faqat { docId: string } ga extends qiladigan tiplarni qabul qiladi va title (string) va content (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type ProjectDocument<T extends { docId: string }> = {};
+type ProjectDocument<T extends { docId: string }> = {
+  title: string;
+  content: T;
+};
 
 const proposal: ProjectDocument<{ docId: string; summary: string }> = {
   title: "Proposal",
@@ -855,7 +984,10 @@ const reportDoc: ProjectDocument<{ docId: string; pages: number }> = {
 // Jafar tarmoq konfiguratsiyalari uchun NetworkConfig interface yozmoqchi. Bu interface faqat { configId: number } ga extends qiladigan tiplarni qabul qiladi va name (string) va settings (generic type) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface NetworkConfig<T extends { configId: number }> { }
+interface NetworkConfig<T extends { configId: number }> {
+  name: string;
+  settings: T;
+}
 
 const serverConfig: NetworkConfig<{ configId: number; port: number }> = {
   name: "Server",
@@ -874,7 +1006,10 @@ const appConfig: NetworkConfig<{ configId: number; debug: boolean }> = {
 // Laylo retseptlar ro'yxati uchun RecipeList type yozmoqchi. Bu type faqat { recipeId: string } ga extends qiladigan tiplarni qabul qiladi va category (string) va recipes (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type RecipeList<T extends { recipeId: string }> = {};
+type RecipeList<T extends { recipeId: string }> = {
+  category: string;
+  recipes: T[];
+};
 
 const soupRecipes: RecipeList<{ recipeId: string; name: string }> = {
   category: "Sho'rvalar",
@@ -893,7 +1028,10 @@ const dessertRecipes: RecipeList<{ recipeId: string; calories: number }> = {
 // Gulchehra veb-sayt kontenti uchun WebContent type yozmoqchi. Bu type faqat { contentId: string } ga extends qiladigan tiplarni qabul qiladi va page (string) va elements (generic type massiv) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-type WebContent<T extends { contentId: string }> = {};
+type WebContent<T extends { contentId: string }> = {
+  page: string;
+  elements: T[];
+};
 
 const homePage: WebContent<{ contentId: string; title: string }> = {
   page: "Home",

@@ -5,13 +5,13 @@
 // Oyjamol stringStorage nomli obyekt yaratgan. U ushbu obyektga mos keladigan Storage nomli interface yasamoqchi. Interface tashqaridan type qabul qiladi va items (massiv), count (raqam), va lastItem (oxirgi element) maydonlarini o'z ichiga oladi.
 
 // Kod snippet:
-interface Storagee<T> {
+interface Storages<T> {
   items: T[];
   count: number;
   lastItem: string;
 }
 
-const stringStorage: Storagee<string> = {
+const stringStorage: Storages<string> = {
   items: ["olma", "anor", "shaftoli"],
   count: 3,
   lastItem: "shaftoli",
@@ -20,11 +20,13 @@ const stringStorage: Storagee<string> = {
 // =============================================================
 // ========================= 2-masala ==========================
 // =============================================================
-// Tushuntirish:+
+// Tushuntirish:
 // Rahmatilla sinfdoshlarining baholarini saqlamoqchi. U FlexibleArray nomli interface yozmoqchi, bu interface turli xil tiplarni (raqam yoki string) qabul qiladigan massiv sifatida ishlaydi.
 
 // Kod snippet:
-interface FlexibleArray<T> { }
+interface FlexibleArray<T> {
+  [index: number]: T;
+}
 
 const numbers: FlexibleArray<number> = [5, 4, 3];
 const words: FlexibleArray<string> = ["a'lo", "yaxshi", "qoniqarli"];
@@ -36,7 +38,9 @@ const words: FlexibleArray<string> = ["a'lo", "yaxshi", "qoniqarli"];
 // Boymurod GenericContainer degan interface yozmoqchi. Unda value maydoni bor, bu maydon turli xil tiplarda (son, matn, boolean) bo'lishi mumkin.
 
 // Kod snippet:
-interface GenericContainer<T> { }
+interface GenericContainer<T> {
+  value: T;
+}
 
 const container1: GenericContainer<number> = { value: 42 };
 const container2: GenericContainer<string> = { value: "Salom" };
@@ -49,7 +53,11 @@ const container3: GenericContainer<boolean> = { value: true };
 // Shahrizat opa mahsulotlar uchun Product interface yaratmoqchi. Unda name (string), price (number), va extra (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Product<T> { }
+interface Product<T> {
+  name: string;
+  price: number;
+  extra: T;
+}
 
 const food: Product<{ calories: number }> = {
   name: "Non",
@@ -70,7 +78,11 @@ const electronics: Product<{ warranty: string }> = {
 // Nosirbek Log degan interface yozmoqchi, unda message (string), timestamp (Date), va meta (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Log<T> { }
+interface Log<T> {
+  message: string;
+  timestamp: Date;
+  meta: T;
+}
 
 const errorLog: Log<{ errorCode: number }> = {
   message: "Xatolik yuz berdi",
@@ -91,7 +103,10 @@ const infoLog: Log<{ user: string }> = {
 // Dilshod aka kutubxona tizimi uchun Book interface yozmoqchi. Unda title (string) va details (generic type) maydonlari bo'ladi, details turli ma'lumotlarni saqlaydi.
 
 // Kod snippet:
-interface Book<T> { }
+interface Book<T> {
+  title: string;
+  details: T;
+}
 
 const novel: Book<{ author: string }> = {
   title: "O'tgan Kunlar",
@@ -110,7 +125,10 @@ const textbook: Book<{ subject: string }> = {
 // Gulnora opa foydalanuvchi ma'lumotlari uchun UserProfile interface yaratmoqchi. Unda id (number) va info (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface UserProfile<T> { }
+interface UserProfile<T> {
+  id: number;
+  info: T;
+}
 
 const user1: UserProfile<{ name: string }> = {
   id: 1,
@@ -129,7 +147,10 @@ const user2: UserProfile<{ age: number }> = {
 // Farrux dars jadvallarini saqlash uchun Schedule interface yozmoqchi. Unda day (string) va events (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Schedule<T> { }
+interface Schedule<T> {
+  day: string;
+  events: T[];
+}
 
 const monday: Schedule<string> = {
   day: "Dushanba",
@@ -148,7 +169,10 @@ const tuesday: Schedule<{ time: string }> = {
 // Zilola xaridlar ro'yxati uchun ShoppingList interface yozmoqchi. Unda items (generic type massiv) va total (number) maydonlari bo'ladi.
 
 // Kod snippet:
-interface ShoppingList<T> { }
+interface ShoppingList<T> {
+  items: T[];
+  total: number;
+}
 
 const groceries: ShoppingList<string> = {
   items: ["suv", "non", "go'sht"],
@@ -167,14 +191,17 @@ const electronicsList: ShoppingList<{ name: string; price: number }> = {
 // Jasur fayllarni boshqarish uchun FileSystem interface yozmoqchi. Unda path (string) va content (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface FileSystem<T> { }
+interface FileSystems<T> {
+  path: string;
+  content: T;
+}
 
-const textFile: FileSystem<string> = {
+const textFile: FileSystems<string> = {
   path: "/docs/text.txt",
   content: "Salom, dunyo!",
 };
 
-const jsonFile: FileSystem<{ id: number }> = {
+const jsonFile: FileSystems<{ id: number }> = {
   path: "/data/user.json",
   content: { id: 1 },
 };
@@ -186,7 +213,11 @@ const jsonFile: FileSystem<{ id: number }> = {
 // Madina loyiha ma'lumotlari uchun Project interface yozmoqchi. Unda name (string), status (string), va metadata (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Project<T> { }
+interface Project<T> {
+  name: string;
+  status: string;
+  metadata: T;
+}
 
 const webProject: Project<{ framework: string }> = {
   name: "E-commerce",
@@ -207,7 +238,10 @@ const mobileProject: Project<{ platform: string }> = {
 // Sardor do'kon inventarini boshqarish uchun Inventory interface yozmoqchi. Unda products (generic type massiv) va category (string) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Inventory<T> { }
+interface Inventory<T> {
+  products: T[];
+  category: string;
+}
 
 const clothes: Inventory<{ size: string }> = {
   products: [{ size: "M" }, { size: "L" }],
@@ -226,7 +260,10 @@ const gadgets: Inventory<{ brand: string }> = {
 // Nigora xabarlar tizimi uchun Message interface yozmoqchi. Unda sender (string) va payload (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Message<T> { }
+interface Message<T> {
+  sender: string;
+  payload: T;
+}
 
 const textMessage: Message<string> = {
   sender: "Ali",
@@ -245,14 +282,17 @@ const dataMessage: Message<{ code: number }> = {
 // Kamoljon API javoblarini saqlash uchun ApiResponse interface yozmoqchi. Unda status (number) va data (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface ApiResponse<T> { }
+interface ApiResponse<T> {
+  status: number;
+  data: T;
+}
 
 const userResponse: ApiResponse<{ name: string }> = {
   status: 200,
   data: { name: "Oybek" },
 };
 
-const errorResponse: ApiResponse<string> = {
+const errorResponses: ApiResponse<string> = {
   status: 404,
   data: "Not Found",
 };
@@ -264,7 +304,10 @@ const errorResponse: ApiResponse<string> = {
 // Shaxzod kutubxona kitoblari uchun LibraryBook interface yozmoqchi. Unda isbn (string) va info (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface LibraryBook<T> { }
+interface LibraryBook<T> {
+  isbn: string;
+  info: T;
+}
 
 const fiction: LibraryBook<{ genre: string }> = {
   isbn: "123456",
@@ -283,7 +326,10 @@ const science: LibraryBook<{ pages: number }> = {
 // Zulayho talabalar ro'yxati uchun StudentList interface yozmoqchi. Unda group (string) va students (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface StudentList<T> { }
+interface StudentList<T> {
+  group: string;
+  students: T[];
+}
 
 const groupA: StudentList<{ name: string }> = {
   group: "A-101",
@@ -302,7 +348,10 @@ const groupB: StudentList<{ id: number }> = {
 // Rustam hodimlar ma'lumotlari uchun Employee interface yozmoqchi. Unda department (string) va details (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Employee<T> { }
+interface Employee<T> {
+  department: string;
+  details: T;
+}
 
 const developer: Employee<{ role: string }> = {
   department: "IT",
@@ -321,7 +370,10 @@ const manager: Employee<{ experience: number }> = {
 // Malika onlayn kurslar uchun Course interface yozmoqchi. Unda title (string) va content (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Course<T> { }
+interface Course<T> {
+  title: string;
+  content: T[];
+}
 
 const programming: Course<string> = {
   title: "TypeScript",
@@ -340,7 +392,10 @@ const design: Course<{ topic: string }> = {
 // Otabek blog postlari uchun Post interface yozmoqchi. Unda author (string) va metadata (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Post<T> { }
+interface Post<T> {
+  author: string;
+  metadata: T;
+}
 
 const techPost: Post<{ category: string }> = {
   author: "Jamshid",
@@ -359,7 +414,10 @@ const lifePost: Post<{ date: string }> = {
 // Aziza savdo operatsiyalari uchun Transaction interface yozmoqchi. Unda amount (number) va details (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Transaction<T> { }
+interface Transaction<T> {
+  amount: number;
+  details: T;
+}
 
 const purchase: Transaction<{ item: string }> = {
   amount: 50000,
@@ -378,14 +436,17 @@ const refund: Transaction<{ reason: string }> = {
 // Shohruh tarmoq so'rovlari uchun Request interface yozmoqchi. Unda url (string) va payload (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Request<T> { }
+interface Requests<T> {
+  url: string;
+  payload: T;
+}
 
-const getRequest: Request<string> = {
+const getRequest: Requests<string> = {
   url: "/api/users",
   payload: "GET",
 };
 
-const postRequest: Request<{ id: number }> = {
+const postRequest: Requests<{ id: number }> = {
   url: "/api/users",
   payload: { id: 1 },
 };
@@ -397,7 +458,10 @@ const postRequest: Request<{ id: number }> = {
 // Xurshida taomlar ro'yxati uchun Menu interface yozmoqchi. Unda category (string) va items (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Menu<T> { }
+interface Menu<T> {
+  category: string;
+  items: T[];
+}
 
 const desserts: Menu<string> = {
   category: "Shirinliklar",
@@ -416,14 +480,17 @@ const drinks: Menu<{ price: number }> = {
 // Ibrohim sport tadbirlari uchun Event interface yozmoqchi. Unda name (string) va info (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Event<T> { }
+interface Events<T> {
+  name: string;
+  info: T;
+}
 
-const football: Event<{ location: string }> = {
+const football: Events<{ location: string }> = {
   name: "Futbol",
   info: { location: "Stadion" },
 };
 
-const chess: Event<{ participants: number }> = {
+const chess: Events<{ participants: number }> = {
   name: "Shaxmat",
   info: { participants: 32 },
 };
@@ -435,14 +502,17 @@ const chess: Event<{ participants: number }> = {
 // Zarina fayl metadatalari uchun FileMetadata interface yozmoqchi. Unda filename (string) va metadata (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface FileMetadata<T> { }
+interface FileMetadata<T> {
+  filename: string;
+  metadata: T;
+}
 
 const image: FileMetadata<{ size: number }> = {
   filename: "photo.jpg",
   metadata: { size: 1024 },
 };
 
-const document: FileMetadata<{ format: string }> = {
+const documents: FileMetadata<{ format: string }> = {
   filename: "report.pdf",
   metadata: { format: "PDF" },
 };
@@ -454,7 +524,10 @@ const document: FileMetadata<{ format: string }> = {
 // Anvar xodimlar jadvallari uchun Roster interface yozmoqchi. Unda date (string) va members (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Roster<T> { }
+interface Roster<T> {
+  date: string;
+  members: T[];
+}
 
 const teamA: Roster<{ name: string }> = {
   date: "2025-06-27",
@@ -473,7 +546,10 @@ const teamB: Roster<{ id: number }> = {
 // Mohira test natijalari uchun TestResult interface yozmoqchi. Unda testName (string) va result (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface TestResult<T> { }
+interface TestResult<T> {
+  testName: string;
+  result: number | string;
+}
 
 const mathTest: TestResult<number> = {
   testName: "Matematika",
@@ -492,7 +568,10 @@ const essayTest: TestResult<string> = {
 // Komiljon do'kon savdolari uchun Sale interface yozmoqchi. Unda date (string) va items (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Sale<T> { }
+interface Sale<T> {
+  date: string;
+  items: T[];
+}
 
 const dailySale: Sale<{ product: string }> = {
   date: "2025-06-27",
@@ -511,7 +590,10 @@ const bulkSale: Sale<{ quantity: number }> = {
 // Nodira sayohat rejalari uchun Trip interface yozmoqchi. Unda destination (string) va details (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Trip<T> { }
+interface Trip<T> {
+  destination: string;
+  details: T;
+}
 
 const beachTrip: Trip<{ duration: string }> = {
   destination: "Maldiv",
@@ -530,7 +612,10 @@ const cityTrip: Trip<{ budget: number }> = {
 // Bahrom tarmoq xabarlari uchun NetworkMessage interface yozmoqchi. Unda protocol (string) va data (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface NetworkMessage<T> { }
+interface NetworkMessage<T> {
+  protocol: string;
+  data: T;
+}
 
 const httpMessage: NetworkMessage<string> = {
   protocol: "HTTP",
@@ -549,7 +634,10 @@ const wsMessage: NetworkMessage<{ status: number }> = {
 // Feruza talaba imtihonlari uchun Exam interface yozmoqchi. Unda subject (string) va score (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Exam<T> { }
+interface Exam<T> {
+  subject: string;
+  score: number | string;
+}
 
 const mathExam: Exam<number> = {
   subject: "Matematika",
@@ -568,7 +656,10 @@ const litExam: Exam<string> = {
 // Eldor loyiha jadvallari uchun Timeline interface yozmoqchi. Unda projectName (string) va milestones (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Timeline<T> { }
+interface Timeline<T> {
+  projectName: string;
+  milestones: T[];
+}
 
 const appTimeline: Timeline<{ phase: string }> = {
   projectName: "Mobile App",
@@ -587,7 +678,10 @@ const webTimeline: Timeline<{ date: string }> = {
 // Munisa foydalanuvchi sozlamalari uchun Settings interface yozmoqchi. Unda userId (number) va preferences (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Settings<T> { }
+interface Settings<T> {
+  userId: number;
+  preferences: T;
+}
 
 const userSettings: Settings<{ theme: string }> = {
   userId: 123,
@@ -606,7 +700,10 @@ const adminSettings: Settings<{ notifications: boolean }> = {
 // Asadbek buyurtmalar uchun Order interface yozmoqchi. Unda orderId (string) va items (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Order<T> { }
+interface Order<T> {
+  orderId: string;
+  items: T[];
+}
 
 const foodOrder: Order<{ dish: string }> = {
   orderId: "A123",
@@ -625,7 +722,10 @@ const gadgetOrder: Order<{ price: number }> = {
 // Dilorom jamoa ma'lumotlari uchun Team interface yozmoqchi. Unda name (string) va members (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Team<T> { }
+interface Team<T> {
+  name: string;
+  members: T[];
+}
 
 const devTeam: Team<{ role: string }> = {
   name: "Developers",
@@ -644,7 +744,10 @@ const designTeam: Team<{ name: string }> = {
 // Shavkat xizmatlar ro'yxati uchun Service interface yozmoqchi. Unda serviceName (string) va config (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Service<T> { }
+interface Service<T> {
+  serviceName: string
+  config: T;
+}
 
 const cloudService: Service<{ provider: string }> = {
   serviceName: "Cloud",
@@ -663,7 +766,10 @@ const dbService: Service<{ type: string }> = {
 // Oydin tashkilotlar uchun Organization interface yozmoqchi. Unda name (string) va details (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Organization<T> { }
+interface Organization<T> {
+  name: string;
+  details: T;
+}
 
 const company: Organization<{ industry: string }> = {
   name: "Tech Corp",
@@ -682,14 +788,17 @@ const ngo: Organization<{ mission: string }> = {
 // Farhod hujjatlar uchun Document interface yozmoqchi. Unda title (string) va content (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Document<T> { }
+interface Documents<T> {
+  title: string;
+  content: T;
+}
 
-const report: Document<{ pages: number }> = {
+const report: Documents<{ pages: number }> = {
   title: "Annual Report",
   content: { pages: 50 },
 };
 
-const contract: Document<string> = {
+const contract: Documents<string> = {
   title: "Agreement",
   content: "Terms and conditions",
 };
@@ -701,7 +810,10 @@ const contract: Document<string> = {
 // Zuhra tadbir rejalari uchun Plan interface yozmoqchi. Unda eventName (string) va tasks (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Plan<T> { }
+interface Plan<T> {
+  eventName: string;
+  tasks: T[];
+}
 
 const weddingPlan: Plan<{ task: string }> = {
   eventName: "To'y",
@@ -720,14 +832,17 @@ const conferencePlan: Plan<{ priority: number }> = {
 // Akram xabarlar ro'yxati uchun Notification interface yozmoqchi. Unda type (string) va data (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Notification<T> { }
+interface Notifications<T> {
+  type: string;
+  data: T;
+}
 
-const email: Notification<{ subject: string }> = {
+const email: Notifications<{ subject: string }> = {
   type: "Email",
   data: { subject: "Meeting" },
 };
 
-const sms: Notification<string> = {
+const sms: Notifications<string> = {
   type: "SMS",
   data: "Reminder: Meeting at 10",
 };
@@ -739,7 +854,10 @@ const sms: Notification<string> = {
 // Surayyo loyiha holatlari uchun Status interface yozmoqchi. Unda projectId (number) va state (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Status<T> { }
+interface Status<T> {
+  projectId: number;
+  state: T;
+}
 
 const projectStatus: Status<string> = {
   projectId: 101,
@@ -758,7 +876,10 @@ const taskStatus: Status<{ progress: number }> = {
 // Mirzo mijozlar ma'lumotlari uchun Client interface yozmoqchi. Unda clientId (string) va info (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Client<T> { }
+interface Client<T> {
+  clientId: string;
+  info: T;
+}
 
 const vipClient: Client<{ tier: string }> = {
   clientId: "C123",
@@ -777,7 +898,10 @@ const regularClient: Client<{ orders: number }> = {
 // Sabina kitoblar ro'yxati uchun BookList interface yozmoqchi. Unda genre (string) va books (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface BookList<T> { }
+interface BookList<T> {
+  genre: string;
+  books: T[];
+}
 
 const fictionList: BookList<{ title: string }> = {
   genre: "Fantastika",
@@ -796,14 +920,17 @@ const scienceList: BookList<{ author: string }> = {
 // Ilhom tarmoq so'rov natijalari uchun Response interface yozmoqchi. Unda code (number) va result (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Response<T> { }
+interface Responses<T> {
+  code: number;
+  result: T;
+}
 
-const successResponse: Response<string> = {
+const successResponse: Responses<string> = {
   code: 200,
   result: "Success",
 };
 
-const errorResponse: Response<{ message: string }> = {
+const errorResponse: Responses<{ message: string }> = {
   code: 500,
   result: { message: "Server Error" },
 };
@@ -815,7 +942,10 @@ const errorResponse: Response<{ message: string }> = {
 // Nargiza ta'til rejalari uchun Vacation interface yozmoqchi. Unda location (string) va details (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Vacation<T> { }
+interface Vacation<T> {
+  location: string;
+  details: T;
+}
 
 const summerVacation: Vacation<{ duration: number }> = {
   location: "Issiqko'l",
@@ -834,7 +964,10 @@ const winterVacation: Vacation<{ activities: string[] }> = {
 // Sherzod savdo tranzaksiyalari uchun Payment interface yozmoqchi. Unda amount (number) va info (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Payment<T> { }
+interface Payment<T> {
+  amount: number;
+  info: T;
+}
 
 const onlinePayment: Payment<{ method: string }> = {
   amount: 100000,
@@ -853,7 +986,10 @@ const cashPayment: Payment<{ currency: string }> = {
 // Mavluda loyiha hujjatlari uchun ProjectDoc interface yozmoqchi. Unda docId (string) va content (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface ProjectDoc<T> { }
+interface ProjectDoc<T> {
+  docId: string;
+  content: T;
+}
 
 const proposal: ProjectDoc<{ summary: string }> = {
   docId: "D001",
@@ -872,7 +1008,10 @@ const reportDoc: ProjectDoc<number> = {
 // Jafar tarmoq konfiguratsiyalari uchun Config interface yozmoqchi. Unda name (string) va settings (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Config<T> { }
+interface Config<T> {
+  name: string;
+  settings: T;
+}
 
 const serverConfig: Config<{ port: number }> = {
   name: "Server",
@@ -891,7 +1030,10 @@ const appConfig: Config<{ debug: boolean }> = {
 // Laylo taom retseptlari uchun Recipe interface yozmoqchi. Unda dishName (string) va ingredients (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Recipe<T> { }
+interface Recipe<T> {
+  dishName: string;
+  ingredients: T[];
+}
 
 const soupRecipe: Recipe<string> = {
   dishName: "Sho'rva",
@@ -910,7 +1052,10 @@ const cakeRecipe: Recipe<{ quantity: number }> = {
 // O'ktam xabar jurnallari uchun LogEntry interface yozmoqchi. Unda logId (number) va data (generic type) maydonlari bo'ladi.
 
 // Kod snippet:
-interface LogEntry<T> { }
+interface LogEntry<T> {
+  logId: number;
+  data: T;
+}
 
 const systemLog: LogEntry<{ event: string }> = {
   logId: 1001,
@@ -929,7 +1074,10 @@ const userLog: LogEntry<string> = {
 // Gulchehra sayt kontenti uchun Content interface yozmoqchi. Unda page (string) va elements (generic type massiv) maydonlari bo'ladi.
 
 // Kod snippet:
-interface Content<T> { }
+interface Content<T> {
+  page: string;
+  elements: T[];
+}
 
 const homePage: Content<{ title: string }> = {
   page: "Home",
